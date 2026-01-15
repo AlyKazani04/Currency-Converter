@@ -3,27 +3,49 @@ import requests
 
 app = Flask(__name__)
 
-BASE_PRIMARY_API_URL = "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/"
+BASE_PRIMARY_API_URL = "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/"
 BASE_SECONDARY_API_URL = "https://latest.currency-api.pages.dev/v1/"
 
 @app.route('/')
 def home():
     return render_template('index.html')
 
-@app.route('/api/external-data', strict_slashes=False)
-def external_data():
-    currency_code = request.args.get("currency_code", "usd").lower()
-    response = requests.get(BASE_PRIMARY_API_URL + currency_code + '.json')
+@app.route('/api/currencies')
+def list_currencies():
+    response = requests.get(BASE_PRIMARY_API_URL + 'currencies.json')
+
+    if response.status_code != 200:
+        return jsonify('Error fetching data from external API'), response.status_code
+    data = response.json()
+    currencies = { 
+        code : name for code, name in data.items() if name
+    }
+
+    # print(data.values())
+
+    return jsonify({
+        "currencies": currencies
+    })
+
+@app.route('/api/currency/<currency_code>', strict_slashes=False)
+def currency_data(currency_code):
+    currency_code = currency_code.lower()
+
+    response = requests.get(
+        BASE_PRIMARY_API_URL + f'currencies/{currency_code}.json'
+    )
+    
     if response.status_code != 200:
         return jsonify('Error fetching data from external API'), response.status_code
     
     data = response.json()
+
     res = {
         "date": data['date'],
         "currency_code": currency_code.upper(),
         "currency": data[currency_code]
     }
-    # res.update(data[currency_code])
+
     return jsonify(res)
         
 

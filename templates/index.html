@@ -7,11 +7,26 @@
     <title>Currency Exchange Rate</title>
 </head>
 <body>
-    <h1 style="align-self: center;">External API Data</h1>
+    <h1 style="align-self: center;">External API Data Test</h1>
     <div>
-        <button onclick="loadData('usd')">USD</button>
-        <button onclick="loadData('eur')">EUR</button>
-        <button onclick="loadData('gbp')">GBP</button>
+        <button onclick="getCurrencyRates('usd')">USD</button>
+        <button onclick="getCurrencyRates('eur')">EUR</button>
+        <button onclick="getCurrencyRates('gbp')">GBP</button>
+    </div>
+    <div>
+        <input type="number" id="amount" placeholder="Enter Amount to Convert">
+    </div>
+    <div>   
+        <label for="from">Choose Currency to Convert:</label>
+        <select id="from">
+            <option value="" disabled selected>Select a currency</option>
+        </select>
+    </div>
+    <div>
+        <label for="to">Choose Currency to Convert to:</label>
+        <select id="to">
+            <option value="" disabled selected>Select a currency</option>
+        </select>
     </div>
     <p id="output"></p>
     <script src="{{ url_for('static', filename='index.js') }}"></script>
