@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Currency Exchange Rate</title>
+</head>
+<body>
+    <h1 style="align-self: center;">External API Data</h1>
+    <div>
+        <button onclick="loadData('usd')">USD</button>
+        <button onclick="loadData('eur')">EUR</button>
+        <button onclick="loadData('gbp')">GBP</button>
+    </div>
+    <p id="output"></p>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+</body>
+</html>
