@@ -31,33 +31,44 @@ function populateCurrencyDropdown()
         return res.json()
     })
     .then(data => {
-        const from = document.getElementById("from");
-        const to = document.getElementById("to")
+        const fromList = document.getElementById("fromCurrencies");
+        const toList = document.getElementById("toCurrencies")
+
+        fromList.innerHTML = "";
+        toList.innerHTML = "";
         
         Object.entries(data.currencies).forEach(([code, name]) => {
             const option = document.createElement("option");
-            option.text = name;
-            option.value = code;
-            from.appendChild(option);
+            option.text = `${code.toUpperCase()} - ${name}`;
+            option.value = `${code.toUpperCase()} - ${name}`;
+            fromList.appendChild(option);
 
-            const opt2 = option.cloneNode(true);
-            to.appendChild(opt2);
+            const option2 = document.createElement("option");
+            option2.text = `${code.toUpperCase()} - ${name}`;
+            option2.value = `${code.toUpperCase()} - ${name}`;
+            toList.appendChild(option2);
         });
+        console.debug(fromList.children.length);
     })
     .catch(err => console.error(err));
 }
 
+function extractCode(input) {
+    if (!input) return "";
+    return input.split(" - ")[0].trim().toLowerCase();
+}
+
 function convertCurrency()
 {
-    const fromSelect = document.getElementById("from");
-    const fromCurrency = fromSelect.options[fromSelect.selectedIndex].value;
-    const toSelect = document.getElementById("to");
-    const toCurrency = toSelect.options[toSelect.selectedIndex].value;
-    
+    const fromInput = document.getElementById("fromInput");
+    const toInput = document.getElementById("toInput");
     const amountInput = document.getElementById("amount");
-    const amount = parseFloat(amountInput.value);
 
-    if(amount >= 0)
+    const amount = parseFloat(amountInput.value);
+    const fromCurrency = extractCode(fromInput.value);
+    const toCurrency = extractCode(toInput.value);
+
+    if(amount >= 0 && fromCurrency && toCurrency)
     {
         console.debug(`Converting ${amount} from ${fromCurrency} to ${toCurrency}`);
         return fetch(`/api/rate/${fromCurrency}/${toCurrency}`)
@@ -75,13 +86,23 @@ function convertCurrency()
             console.debug(convertedAmount);
     
             document.getElementById("conversionResult").innerText = 
-                `${fromCurrency.toUpperCase()} ${amount} = ${toCurrency.toUpperCase()} ${convertedAmount}`;
+                `Date: ${data.date}
+                ${fromCurrency.toUpperCase()} ${amount} = ${toCurrency.toUpperCase()} ${convertedAmount}`;
         })
         .catch(err => console.error(err));
     }
     else
     {
-        highlightAndClear("amount", 2000);
+        if(amount < 0 || isNaN(amount))
+        {
+            highlightAndClear("amount", 2000);
+
+        }
+        if(!fromCurrency || !toCurrency)
+        {
+            highlightAndClear("fromInput", 2000);
+            highlightAndClear("toInput", 2000);
+        }
     }
 }
 

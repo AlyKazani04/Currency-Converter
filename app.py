@@ -27,26 +27,6 @@ def list_currencies():
         "currencies": currencies
     })
 
-@app.route('/api/currency/<currency_code>', strict_slashes=False)
-def currency_data(currency_code):
-    currency_code = currency_code.lower()
-
-    response = requests.get(
-        BASE_PRIMARY_API_URL + f'currencies/{currency_code}.json'
-    )
-    
-    if response.status_code != 200:
-        return jsonify('Error fetching data from external API'), response.status_code
-    
-    data = response.json()
-
-    res = {
-        "date": data['date'],
-        "currency_code": currency_code.upper(),
-        "currency": data[currency_code]
-    }
-
-    return jsonify(res)
 
 @app.route('/api/rate/<from_code>/<to_code>')
 def conversion_rate(from_code, to_code):
@@ -61,6 +41,7 @@ def conversion_rate(from_code, to_code):
     data = response.json()
 
     result = {
+        "date" : data["date"],
         "rate" : data[from_code][to_code]
     }
     return jsonify(result)

@@ -7,33 +7,29 @@
     <title>Currency Exchange Rate</title>
 </head>
 <body>
-    <h1>Currency Exchange Rate Viewer</h1>
-    
-    <div>
-        <button onclick="getCurrencyRates('usd')">USD</button>
-        <button onclick="getCurrencyRates('eur')">EUR</button>
-        <button onclick="getCurrencyRates('gbp')">GBP</button>
-    </div>
-    <div>   
-        <label for="from">Choose Currency to Convert:</label>
-        <select id="from">
-            <option value="" disabled selected>Select a currency</option>
-        </select>
-    </div>
-    <div>
-        <input type="number" id="amount" placeholder="Enter Amount to Convert" value="1">
-    </div>
-    <div>
-        <label for="to">Choose Currency to Convert to:</label>
-        <select id="to">
-            <option value="" disabled selected>Select a currency</option>
-        </select>
-    </div>
-    <div>
-        <button onclick="convertCurrency()">Convert Currency</button>
-    </div>
-    <p id="conversionResult"></p>
-    <p id="output"></p>
+    <section id="converter">
+        <h1 id="title">Exchange Rate Fetcher</h1>
+        
+        <p>Around 330 currencies to choose from.</p>
+
+        <div id="interaction">
+            <!-- <label for="from"></label> -->
+            <input id="fromInput" type="text" list="fromCurrencies" autocomplete="off" placeholder="Choose Currency to Convert:">
+            <datalist id="fromCurrencies"></datalist>
+        
+            <input type="number" id="amount" placeholder="Enter Amount to Convert" value="1" >
+        
+            <!-- <label for="to">Choose Currency to Convert to:</label> -->
+            <input id="toInput" type="text" list="toCurrencies" autocomplete="off" placeholder="Choose Currency to Convert:">
+            <datalist id="toCurrencies"></datalist>
+        </div>
+
+        <div>
+            <button onclick="convertCurrency()">Convert Currency</button>
+        </div>
+
+        <p id="conversionResult"></p>
+    </section>
     <script src="{{ url_for('static', filename='index.js') }}"></script>
 </body>
 </html>
