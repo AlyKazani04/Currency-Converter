@@ -47,7 +47,23 @@ def currency_data(currency_code):
     }
 
     return jsonify(res)
-        
+
+@app.route('/api/rate/<from_code>/<to_code>')
+def conversion_rate(from_code, to_code):
+    from_code = from_code.lower()
+    to_code = to_code.lower()
+
+    response = requests.get(BASE_PRIMARY_API_URL + f'currencies/{from_code}.json')
+
+    if response.status_code != 200:
+        return jsonify('Error fetching data from external API'), response.status_code
+
+    data = response.json()
+
+    result = {
+        "rate" : data[from_code][to_code]
+    }
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.run(debug=True)

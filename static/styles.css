@@ -1,0 +1,41 @@
+
+*
+{
+    padding: 0px;
+    margin: auto;
+    color: white;
+}
+
+body
+{
+    text-align: center;
+    height: fit-content;
+    background-color: black;
+    color-scheme: dark;
+    display: block;
+    align-items: center;
+}
+
+.highlighted 
+{
+    border: 2px solid red;
+    border-radius: 5px;
+}
+
+#amount
+{
+    transition: border-color 0.3s ease;
+}
+#amount::placeholder
+{
+    color: rgb(195, 195, 195);    
+    transition: border-color 0.3s ease;
+}
+
+div
+{
+    
+    padding: 2px;
+    margin: 5px 0 5px 0;
+    justify-items: center;
+}
