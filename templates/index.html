@@ -8,20 +8,30 @@
 </head>
 <body>
     <section id="converter">
-        <h1 id="title">Exchange Rate Fetcher</h1>
+        <h1 id="title">Currency Exchange Rate Fetcher</h1>
         
         <p>Around 330 currencies to choose from.</p>
 
         <div id="interaction">
-            <!-- <label for="from"></label> -->
-            <input id="fromInput" type="text" list="fromCurrencies" autocomplete="off" placeholder="Choose Currency to Convert:">
-            <datalist id="fromCurrencies"></datalist>
+            <div class="dropdown">
+                <div class="selection">
+                    <input id="fromSearch" type="text" placeholder="Choose Currency to Convert:" 
+                    onkeyup="filterCurrencies('fromSearch', 'fromCurrencies')">
+                    <button class="dropbtn" onclick="toggleDropdown('fromCurrencies')">▼</button>
+                </div>
+                <select id="fromCurrencies" class="dropdown-content" size="5"></select>
+            </div>
         
-            <input type="number" id="amount" placeholder="Enter Amount to Convert" value="1" >
+            <input class="num-select" type="number" id="amount" placeholder="Enter Amount to Convert" value="1" >
         
-            <!-- <label for="to">Choose Currency to Convert to:</label> -->
-            <input id="toInput" type="text" list="toCurrencies" autocomplete="off" placeholder="Choose Currency to Convert:">
-            <datalist id="toCurrencies"></datalist>
+            <div class="dropdown">
+                <div class="selection">
+                    <input id="toSearch" type="text" placeholder="Choose Currency to Convert:"
+                    onkeyup="filterCurrencies('toSearch', 'toCurrencies')">
+                    <button class="dropbtn" onclick="toggleDropdown('toCurrencies')">▼</button>
+                </div>
+                <select id="toCurrencies" class="dropdown-content" size="5"></select>
+            </div>
         </div>
 
         <div>

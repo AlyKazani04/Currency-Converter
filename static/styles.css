@@ -11,7 +11,6 @@ body {
     color: #f1f1f1;
 }
 
-/* Main container feel */
 body > section > * {
     max-width: 400px;
     width: 100%;
@@ -27,13 +26,9 @@ section#converter {
     /* justify-content: space-around; */
 }
 
-
 /* Title */
 h1 {
     margin: 1.5rem auto 1.5rem auto;
-    /* margin-top: 1.5rem;
-    margin-bottom: 1.5rem; */
-
     font-size: 1.8rem;
     text-align: center;
 }
@@ -61,8 +56,14 @@ button {
     transition: color 0.2s ease, transform 0.1s ease;
 }
 
+.dropbtn {
+    background: #111827;
+    height: auto;
+    padding: 0.6rem;
+}
+
 button:hover {
-    background: #388bfd;
+    background: #144da2;
 }
 
 button:active {
@@ -87,11 +88,36 @@ input::placeholder {
     color: #9ca3af;
 }
 
+.num-select {
+    max-width: calc(100% - 1.2rem);
+}
+
 input:focus {
-    outline: none;
-    border-color: #1f6feb;
+    outline: 3px solid #ddd;
+    /* border-color: #1f6feb; */
     box-shadow: 0 0 0 2px rgba(31, 111, 235, 0.35);
 }
+
+.dropdown-content {
+    display: block;
+    position: absolute;
+    background-color: #111827;
+    min-width: auto;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    z-index: 1;
+}
+
+/* Options inside the dropdown */
+.dropdown-content option {
+    color: white;
+    padding: 2px 12px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown items on hover */
+.dropdown-content option:hover {border: 1px solid #444444}
 
 /* Highlighted state */
 .highlighted {
@@ -107,4 +133,17 @@ input:focus {
     font-weight: 500;
     color: #e5e7eb;
     text-align: center;
+}
+
+#fromCurrencies {
+    display: none;
+}
+
+#toCurrencies {
+    display: none;
+}
+
+.selection {
+    display: flex;
+    align-items: baseline;
 }
