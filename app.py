@@ -45,6 +45,3 @@ def conversion_rate(from_code, to_code):
         "rate" : data[from_code][to_code]
     }
     return jsonify(result)
-
-if __name__ == '__main__':
-    app.run(debug=True)
